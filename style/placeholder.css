@@ -1,0 +1,9 @@
+.placeholder[data-placeholder]::after {
+  position: relative;
+  content: attr(data-placeholder);
+  pointer-events: none;
+}
+
+.placeholder .ProseMirror-trailingBreak {
+  display: none;
+}

@@ -7,7 +7,9 @@ class PlaceholderState {
 
 const placeholderKey = new PluginKey<PlaceholderState>("placeholder");
 
-export function placeholder(text: string): Plugin {
+const LTR_EMBEDDING = "\u202A";
+
+export function placeholder(text: string, forceLtr = false): Plugin {
   return new Plugin({
     key: placeholderKey,
     state: {
@@ -31,7 +33,9 @@ export function placeholder(text: string): Plugin {
           return DecorationSet.create(doc, [
             Decoration.node(0, doc.firstChild.nodeSize, {
               class: "placeholder",
-              "data-placeholder": placeholderState.placeholder,
+              "data-placeholder": forceLtr
+                ? `${LTR_EMBEDDING}${placeholderState.placeholder}`
+                : placeholderState.placeholder,
             }),
           ]);
         }

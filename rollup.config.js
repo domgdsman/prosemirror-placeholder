@@ -1,7 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
-import copy from "rollup-plugin-copy";
 import dts from "rollup-plugin-dts";
 
 import { createRequire } from "module";
@@ -14,8 +13,8 @@ export default [
   {
     input: "src/index.ts",
     output: [
-      { file: "dist/index.esm.js", format: "esm" },
-      { file: "dist/index.cjs.js", format: "cjs" },
+      { file: "dist/index.esm.js", format: "esm", sourcemap: true },
+      { file: "dist/index.cjs.js", format: "cjs", sourcemap: true },
     ],
     external, // prevent bundling peer deps
     plugins: [
@@ -27,11 +26,6 @@ export default [
   {
     input: "src/index.ts",
     output: { file: "dist/index.d.ts", format: "es" },
-    plugins: [
-      dts(),
-      copy({
-        targets: [{ src: "style", dest: "dist" }],
-      }),
-    ],
+    plugins: [dts()],
   },
 ];
